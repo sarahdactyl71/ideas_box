@@ -7,18 +7,20 @@ class IdeasController < ApplicationController
   end
 
   def new
+    @categories = Category.all
     @user = current_user
     @idea = Idea.new()
   end
 
   def create
+    @categories = Category.all
     @user = current_user
     @idea = @user.ideas.new(idea_params)
     if @idea.save
       flash[:success] = "#{@idea.title} added"
       redirect_to user_ideas_path(@user)
     else
-      render :new
+      # render :new
     end
   end
 
@@ -28,13 +30,13 @@ class IdeasController < ApplicationController
   end
 
   private
-  
+
   def set_user
     @user = current_user
   end
 
   def idea_params
-    params.require(:idea).permit(:title, :description)
+    params.require(:idea).permit(:title, :description, :category_id)
   end
 
 end

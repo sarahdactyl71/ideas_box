@@ -1,6 +1,9 @@
 <h1>All Ideas</h1>
-
+<div>
 <% @ideas.each do |idea| %>
-<%= idea.title %>
-<%= idea.description %>
+<h3><%= idea.title %></h3>
+<%= idea.description %><br>
 <% end %>
+</div>
+
+<%= link_to "Create New Idea", new_user_idea_path %>
