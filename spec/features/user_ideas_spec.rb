@@ -4,11 +4,12 @@ RSpec.describe "user can make ideas", type: :feature do
   context "as a registered user" do
     it "registered user can generate a new idea" do
       user = User.create(username: "sarah", password: "password")
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       category = Category.create(name: "Travel")
-      title = "Start Kickboxing"
-      description = "Kickbox cause I don't want eyebrows anymore"
+      title = "Do Stuff"
+      description = "Do More Stuff"
 
-      visit new_idea_path
+      visit new_user_idea_path(user)
 
       fill_in "Title", with: title
       fill_in "Description", with: description
@@ -16,9 +17,9 @@ RSpec.describe "user can make ideas", type: :feature do
 
       click_button "Create Idea"
 
-      expect(page).to have_current_path(ideas_path)
-      assert page.has_content?("Start Kickboxing")
-      assert page.has_content?("Kickbox cause I don't want eyebrows anymore")
+      expect(current_path).to eq(user_ideas_path(user))
+      expect(page).to have_content("Do Stuff")
+      expect(page).to have_content("Do More Stuff")
     end
   end
 end

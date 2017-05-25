@@ -1,5 +1,5 @@
 <h1>Create a New Idea!</h1>
-<%= form_for(@idea) do |f| %>
+<%= form_for [@user, @idea] do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %><br>
   <%= f.label :description %>
