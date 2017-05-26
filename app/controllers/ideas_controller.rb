@@ -1,5 +1,5 @@
 class IdeasController < ApplicationController
-  before_action :set_user, only: [:index, :new, :create]
+  before_action :set_user, only: [:index, :new, :create, :destroy]
 
   def index
     @user = current_user
@@ -24,9 +24,37 @@ class IdeasController < ApplicationController
     end
   end
 
+  def edit
+    @categories = Category.all
+    @user = current_user
+    @idea = Idea.find(params[:id])
+  end
+
+  def update
+    @categories = Category.all
+    @user = current_user
+    @idea = Idea.find(params[:id])
+    @idea.update(idea_params)
+    if @idea.save
+      flash[:success] = "#{@idea.title} updated!"
+      redirect_to user_ideas_path(@user)
+    else
+      render :edit
+    end
+  end
+
   def show
     @user = current_user
     @ideas = Idea.find(params[:id])
+  end
+
+  def destroy
+    @user = current_user
+    @idea = Idea.find(params[:id])
+    @idea.destroy
+
+    flash[:success] = "#{@idea.title} was successfully deleted!"
+    redirect_to user_ideas_path(@user)
   end
 
   private

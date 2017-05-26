@@ -3,6 +3,7 @@
 <% @ideas.each do |idea| %>
 <h3><%= idea.title %></h3>
 <%= idea.description %><br>
+<%= link_to "Delete", user_idea_path(@user, idea), method: "delete" %>
 <% end %>
 </div>
 
