@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Category do
   it "category can be created" do
-    category = Category.create(name: "Travel")
+    category = Category.create(name: "Thing")
 
     expect(category).to be_valid
   end

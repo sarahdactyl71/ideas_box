@@ -20,7 +20,7 @@ class IdeasController < ApplicationController
       flash[:success] = "#{@idea.title} added"
       redirect_to user_ideas_path(@user)
     else
-      # render :new
+      render :new
     end
   end
 
